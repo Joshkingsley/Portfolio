@@ -1,0 +1,6 @@
+open ftp://kingsleymwangi05@gmail.com:Kingsley@2005Josh@ftp.freehosting.com
+option confirm off
+lcd C:\Users\kings\Portfolio-Django
+cd /public_html
+put -r *
+exit
