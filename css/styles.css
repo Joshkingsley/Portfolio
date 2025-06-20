@@ -1,0 +1,535 @@
+/* Global Box Sizing */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* General Styles & Theme */
+:root {
+    --primary-blue: #50aaff; /* Light Blue */
+    --primary-blue-rgb: 80, 170, 255;
+    --dark-blue: #0a2e50; /* Darker blue for contrast */
+    --black: #1a1a1a;
+    --white: #ffffff;
+    --light-gray: #f8f9fa;
+    --text-color: #333;
+    --gradient-start: #e0f0ff; /* Lighter blue for gradient */
+    --gradient-end: var(--primary-blue);
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: var(--white);
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: var(--dark-blue);
+}
+
+a {
+    color: var(--primary-blue);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--dark-blue);
+    text-decoration: underline;
+}
+
+.btn-primary {
+    background-color: var(--primary-blue);
+    border-color: var(--primary-blue);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--dark-blue);
+    border-color: var(--dark-blue);
+    transform: translateY(-2px);
+}
+
+.btn-outline-primary {
+    color: var(--primary-blue);
+    border-color: var(--primary-blue);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary-blue);
+    color: var(--white);
+}
+
+.bg-light-blue {
+    background-color: var(--gradient-start);
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--dark-blue);
+    position: relative;
+    padding-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: var(--primary-blue);
+    margin: 0.5rem auto 0;
+}
+
+/* Custom Header Section */
+.custom-header-section {
+    position: relative; 
+    top: -2%;
+    height: 102vh; /* Full viewport height for large screens */
+    color: var(--white);
+}
+
+.intro-container-custom {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%; /* Fill parent (.custom-header-section) */
+    width: 100%;
+    border-radius: 10px; 
+}
+
+.intro-container-custom .intro-bg-img-custom {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px; /* From original */
+}
+
+.overlay-custom {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Fill parent (.custom-header-section) */
+    background-color: rgba(0,0,0,0.82); 
+    border-radius: 10px; 
+    padding: 20px; 
+    display: flex;
+    flex-direction: column; 
+}
+
+.profile-area-custom {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px; /* Space below profile/name */
+}
+
+.roundedimage-div-custom {
+    width: 100px; /* Adjust as needed */
+    height: 100px; /* Adjust as needed */
+    border-radius: 50%;
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
+.roundedimage-div-custom img {
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.name-custom {
+    font-size: 2rem; /* Adjust as needed */
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: var(--white);
+    margin: 0; /* Remove default p margin */
+}
+
+.bsc-custom {
+    font-size: 1rem; /* Adjust as needed */
+    font-weight: normal;
+    opacity: 0.8;
+}
+
+/* Large Screen Navigation (within overlay) */
+.main-nav-large {
+    align-self: center; /* Horizontally centers this block within .overlay-custom */
+    margin-top: 20px; /* Optional: space from profile area */
+    margin-bottom: 20px; /* Optional: space before tagline if tagline is part of flex flow */
+    width: fit-content; /* Ensure the block itself is only as wide as its content for centering */
+}
+
+.main-nav-large ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center; /* Center the list items (cards) */
+}
+
+.main-nav-large ul li {
+    margin-left: 5px; /* Adjusted spacing for cards */
+    margin-right: 5px; /* Adjusted spacing for cards */
+}
+
+.main-nav-large ul li a {
+    text-decoration: none;
+    color: var(--white);
+    font-size: 1rem; /* Adjusted font size for cards */
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    background-color: rgba(255, 255, 255, 0.1); /* Light card background */
+    padding: 12px 20px; /* Padding for card appearance */
+    border-radius: 8px; /* Rounded corners for cards */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-shadow: none; /* Remove text shadow if card provides enough contrast */
+}
+
+.main-nav-large ul li a:hover {
+    color: var(--primary-blue);
+    background-color: rgba(255, 255, 255, 0.25); /* Darken card on hover */
+}
+
+.main-nav-large ul li a i {
+    margin-right: 8px;
+}
+
+/* Combined Profile and Large Nav Area */
+/* Adjust .overlay-custom if you want profile on left and nav on right on the same line */
+.overlay-custom {
+    /* ... existing styles ... */
+    /* For top bar layout on large screens: */
+    /* flex-direction: row; */ /* Uncomment for side-by-side profile and nav */
+    /* justify-content: space-between; */ /* Uncomment for side-by-side */
+    /* align-items: center; */ /* Uncomment for side-by-side */
+}
+
+
+.tagline-custom {
+    font-size: 4rem; /* Increased significantly, was 2.5rem */
+    font-family: 'Times New Roman', Times, serif; /* From original */
+    color: white;
+    /* Positioning based on original, may need adjustment */
+    position: absolute; /* If it needs to be independent of flex flow */
+    left: 5%;
+    top: 50%;
+    transform: translateY(-50%); /* Center vertically if top is 50% */
+    opacity: 0; /* For animation */
+}
+
+.animated-tagline {
+    animation: fadeInCustom 2s ease-in-out forwards;
+}
+
+@keyframes fadeInCustom {
+    0% {
+        opacity: 0;
+        transform: translateY(50px); /* Start slightly lower */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); /* End at original position, or translateY(-50%) if using that for centering */
+    }
+}
+
+/* Small Screen Navigation (Inside Overlay) */
+.main-nav-small {
+    position: static;
+    width: 100%;
+    background-color: transparent;
+    box-shadow: none;
+    margin-top: 20px; /* Adjusted space from profile area */
+    margin-bottom: 20px; /* Adjusted space before tagline */
+    order: 2;
+    flex-grow: 0; /* Compact, does not need to grow */
+    display: flex; 
+}
+
+.main-nav-small ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 auto;
+    width: 90%; /* Width of the grid container */
+    height: auto; /* Height based on content */
+    display: flex;
+    flex-direction: row; /* Arrange items in a row */
+    flex-wrap: wrap; /* Allow items to wrap to the next line */
+    justify-content: space-around; /* Distribute items with space around */
+    align-items: stretch; /* Make cards in the same row equal height if needed */
+}
+
+.main-nav-small ul li {
+    padding: 0;
+    width: calc(50% - 10px); /* Two columns with a 10px gap (5px margin on each side) */
+    margin: 5px; /* Spacing between cards */
+    display: flex; /* To ensure 'a' tag fills the li if needed */
+}
+
+.main-nav-small ul li a {
+    display: block; /* Make 'a' a block element for styling as a card */
+    text-decoration: none;
+    font-size: 1rem; /* Consistent with large screen cards */
+    color: var(--white);
+    font-family: 'Poppins', sans-serif;
+    background-color: rgba(255, 255, 255, 0.1); /* Card background */
+    padding: 12px 15px; /* Card padding, adjust vertical padding as needed */
+    border-radius: 8px; /* Rounded corners */
+    text-align: center; /* Center icon and text within the card */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    width: 100%; /* Card fills the 'li' */
+}
+
+.main-nav-small ul li a:hover {
+    color: var(--primary-blue);
+    background-color: rgba(255, 255, 255, 0.25); /* Darken card on hover */
+    text-decoration: none; /* No underline for card hover */
+}
+
+.main-nav-small ul li a i {
+    display: block;
+    font-size: 1.4rem; /* Slightly larger icon for cards */
+    margin-bottom: 8px; /* Space between icon and text */
+    text-align: center;
+    color: var(--white);
+}
+
+/* Page Content General Padding */
+.page-content {
+    padding-top: 0; 
+    margin-top: 0; /* Header is now 100vh and in document flow */
+}
+
+/* About Section */
+#about-section .lead {
+    font-size: 1.15rem;
+    color: #555;
+}
+
+/* Services Section - Cards */
+.service-card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden; /* Ensures img-top corners are rounded */
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 25px rgba(var(--primary-blue-rgb), 0.3);
+}
+
+.service-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.service-card .card-body {
+    padding: 1.5rem;
+}
+
+.service-card .card-title {
+    color: var(--dark-blue);
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.service-card .card-title i {
+    color: var(--primary-blue);
+}
+
+/* CTA Section */
+#cta-section {
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    color: var(--dark-blue);
+}
+
+.cta-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--dark-blue);
+}
+
+.whatsapp-button {
+    font-size: 1.2rem;
+    padding: 0.8rem 2rem;
+    border-radius: 30px;
+    background-color: #25D366; /* WhatsApp Green */
+    border-color: #25D366;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.whatsapp-button:hover {
+    background-color: #1DAE54;
+    border-color: #1DAE54;
+    transform: translateY(-2px) scale(1.05);
+}
+
+/* Gallery & Blog Cards */
+#gallery-section .card, #blog-section .card {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+#gallery-section .card:hover, #blog-section .card:hover {
+    transform: translateY(-5px);
+}
+
+/* Footer Section */
+.footer-section {
+    background-color: var(--black);
+}
+
+.footer-section h5 {
+    color: var(--primary-blue);
+    margin-bottom: 1rem;
+}
+
+.footer-link {
+    color: rgba(255,255,255,0.7);
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: var(--white);
+    text-decoration: none;
+}
+
+.footer-link i {
+    transition: transform 0.3s ease;
+}
+
+.footer-link:hover i {
+    transform: scale(1.1);
+}
+
+/* Mobile Specific Styles (max-width: 991.98px, as d-lg-none hides mobile nav above this) */
+@media (max-width: 991.98px) {
+    .custom-header-section {
+        height: 100vh; /* Use viewport height to fill screen vertically */
+        min-height: 80vh; /* Fallback or minimum */
+    }
+
+    .intro-container-custom {
+        height: 100vh; /* Match parent to ensure image container also fills viewport height */
+    }
+
+    .overlay-custom {
+        /* Content will now be profile, then nav, then tagline */
+        justify-content: flex-start; /* Align items to the top */
+    }
+
+    .profile-area-custom {
+        flex-direction: row; /* Keep image and name on one line if space allows, or they wrap */
+        align-items: center; /* Vertically align items in the row */
+        text-align: left; /* Align text to the left */
+        margin-bottom: 15px; /* Space below profile area before nav */
+    }
+
+    .roundedimage-div-custom {
+        width: 80px;
+        height: 80px;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .name-custom {
+        font-size: 1.5rem;
+    }
+
+    .tagline-custom {
+        font-size: 2.5rem; /* Increased for mobile, was 1.8rem */
+        position: relative; /* Let it flow in flex normally */
+        top: auto;
+        left: auto;
+        transform: none; /* Reset transform */
+        text-align: center;
+        margin-top: 20px; /* Space from profile area */
+        /* Animation will still apply */
+    }
+
+    .page-content {
+        /* Adjust margin-top if .main-nav-small is part of the flow below header */
+        /* If .main-nav-small is fixed/sticky, body padding-top will be needed */
+        margin-top: 0; /* Reset, as header height is now auto/min-height */
+    }
+
+    /* Styles for .main-nav-small are already defined above and are mobile-first */
+    /* Removed body padding-top as .main-nav-small is no longer fixed */
+    body {
+        padding-top: 0;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .cta-title {
+        font-size: 2rem;
+    }
+
+    /* Removing old mobile nav specific styles as they are replaced by .main-nav-small */
+    /* .nav-bar-mobile, .mobile-nav-header, .mobile-nav-profile-img, .mobile-nav-name etc. are gone */
+
+    /* Your original mobile styles from the prompt, slightly adapted */
+    /* These might need further review based on the new Bootstrap structure */
+    .about { /* This was an old class, now #about-section .section-title */
+        font-size: 30px; /* Adjusted from 50px */
+        text-decoration: underline;
+        font-family: 'Times New Roman', Times, serif; /* Consider consistency with Poppins/Open Sans */
+        color: var(--primary-blue);
+    }
+
+    .about-text-content { /* Adapted from .about-text */
+        font-size: 1rem; /* Adjusted from 23px */
+        font-family: 'Times New Roman', Times, serif; /* Consider consistency */
+    }
+
+    .ready { /* This was an old class, now .cta-title in #cta-section */
+        font-size: 2rem; /* Adjusted from 65px */
+        font-family: 'Times New Roman', Times, serif;
+        text-decoration: underline;
+        color: var(--primary-blue);
+    }
+
+    .create-text {
+        font-size: 1rem;
+        font-family: 'Times New Roman', Times, serif;
+    }
+}
+
+/* Further small screen adjustments if needed */
+@media (max-width: 575.98px) {
+    .nav-bar-mobile ul li a {
+        font-size: 0.7rem; /* Smaller font for very small screens */
+    }
+    .nav-bar-mobile ul li a i {
+        font-size: 1rem; /* Smaller icons */
+    }
+    .hero-name {
+        font-size: 1.8rem;
+    }
+    .hero-tagline {
+        font-size: 1rem;
+    }
+    .section-title {
+        font-size: 1.8rem;
+    }
+    .cta-title {
+        font-size: 1.8rem;
+    }
+}
