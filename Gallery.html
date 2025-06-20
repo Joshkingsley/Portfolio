@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Gallery - M.Joshua</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+
+/* CSS Variables (Ensure these are defined, ideally once at the top of your <style> block or in an external file) */
+    :root {
+    --primary-blue: #50aaff;
+    --primary-blue-rgb: 80, 170, 255;
+    --dark-blue: #0a2e50;
+    --dark-blue-lighter: #2a5275; /* Lighter shade for header */
+    --white: #ffffff;
+    --light-gray: #f8f9fa;
+    --text-color: #333;
+    --gradient-start: #e0f0ff; /* Lighter blue for info cards */
+}
+
+/* General Page Structure for Gallery */
+.gallery-page { /* Apply this class to the <body> tag of your gallery page */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--white); /* Base background for the page */
+    padding-top: 0; /* Override any default body padding if needed */
+}
+
+.page-container { /* Main wrapper inside .gallery-page */
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    position: relative; /* For stacking context of child elements */
+}
+
+/* Fixed Home Link */
+.fixed-home-link {
+    position: fixed;
+    top: 25px;
+    left: 5%; /* Adjust as needed for desired offset */
+    transform: translateX(-5%); /* Helps if the element's width is dynamic */
+    background-color: rgba(var(--primary-blue-rgb), 0.9);
+    color: var(--white);
+    padding: 12px 20px; /* Increased padding for text and icon */
+    border-radius: 25px; /* Rounded rectangle shape */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    z-index: 1050; /* Ensure it's above most other content */
+    transition: all 0.3s ease;
+    font-size: 1.1rem; /* Enlarged text/icon */
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    text-decoration: none; /* Removes underline */
+}
+
+.fixed-home-link i {
+    font-size: 1.4rem; /* Enlarged icon */
+    margin-right: 10px; /* Space between icon and "Home" text */
+}
+
+.fixed-home-link:hover {
+    background-color: var(--dark-blue);
+    color: var(--white);
+    transform: translateX(-5%) scale(1.05); /* Slight scale on hover */
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    text-decoration: none; /* Ensure no underline on hover */
+}
+
+/* Gallery Header Styling */
+.gallery-header {
+    background: var(--dark-blue-lighter); /* Lightened dark blue background */
+    padding: 25px 20px; /* Generous padding */
+    margin-bottom: 0; /* Connects directly to wavy area or content below */
+    position: relative;
+    z-index: 10; /* Above top decorative gradient if one exists directly below */
+}
+
+.gallery-header h4 {
+    text-align: center;
+    font-size: 2.6rem; /* Prominent size */
+    color: var(--white); /* White text for contrast */
+    font-family: 'Poppins', sans-serif; /* Formal, clean font */
+    font-weight: 600; /* Semi-bold for impact */
+    margin-bottom: 0;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.2); /* Subtle shadow for depth */
+    letter-spacing: 0.5px; /* Slightly wider letter spacing */
+}
+
+/* Wavy Background Area for Info Cards */
+.info-cards-wavy-background-area {
+    position: relative;
+    padding: 1px 0 80px 0; /* 1px top padding to prevent margin collapse, 80px bottom for wave */
+    margin-top: 0; /* Connects to header */
+    background: linear-gradient(to bottom, var(--dark-blue-lighter) 0%, var(--primary-blue) 70%, var(--white) 100%);
+    z-index: 2; /* Above page background, below info cards */
+    overflow: hidden; /* Important for pseudo-element wave clipping */
+}
+
+.info-cards-wavy-background-area::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px; /* Height of the SVG wave */
+    /* Low frequency, broad peaks SVG wave */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='1' d='M0,128L480,224L960,128L1440,224L1440,320L960,320L480,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: 100% 80px; /* Control height of SVG wave */
+    z-index: 2; /* Same level as parent's content, drawn on top of its background */
+}
+
+/* Main Content Area (used for sections within and after wavy area) */
+.main-content { /* This class can be used for multiple content sections */
+    flex-grow: 1;
+    padding: 20px;
+    max-width: 1200px; /* Standard content width */
+    margin: 0 auto; /* Center content */
+    width: 100%;
+    position: relative; /* For z-indexing children if needed */
+    z-index: 5; /* Above page-level gradients, below fixed elements */
+}
+
+/* Info Card Styling (for Note and Analysis Countdown) */
+.info-card {
+    background-color: var(--gradient-start); /* Light blue background */
+    border-left: 5px solid var(--primary-blue); /* Accent border */
+    padding: 25px; /* Comfortable padding */
+    margin: 25px auto; /* Spacing and centering */
+    border-radius: 10px; /* Softer corners */
+    max-width: 700px; /* Optimal readability width */
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Subtle shadow */
+    position: relative; /* To sit above the wavy background */
+    z-index: 3; /* Higher than the wavy background's pseudo-element */
+}
+
+.info-card p {
+    margin-bottom: 15px;
+    color: var(--dark-blue);
+    font-size: 1.05rem; /* Slightly larger for readability */
+}
+
+.info-card b {
+    color: var(--dark-blue);
+    font-weight: 600;
+}
+
+.notification-actions a { /* General styling for links within notification actions */
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /* Specific button styling (like .btn, .btn-primary) should be applied in HTML */
+}
+
+.analysis-countdown-card b { /* Specific styling for countdown text */
+    font-size: 1.2rem;
+}
+
+/* Section Heading with Lines */
+.section-heading {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    color: var(--dark-blue);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.section-heading span { /* The text part of the heading */
+    padding: 0 20px;
+    background-color: var(--white); /* To sit above the lines */
+    z-index: 1;
+}
+
+.section-heading::before,
+.section-heading::after { /* The decorative lines */
+    content: '';
+    flex-grow: 1;
+    height: 1px;
+    background-color: rgba(var(--primary-blue-rgb), 0.3); /* Light blue lines */
+    z-index: 0;
+}
+
+.section-heading::before {
+    margin-right: -10px; /* Adjust to get closer to text */
+}
+
+.section-heading::after {
+    margin-left: -10px; /* Adjust to get closer to text */
+}
+
+/* Project Grid */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
+    gap: 25px; /* Space between cards */
+    margin-top: 20px;
+}
+
+/* Project Card */
+.project-card {
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    overflow: hidden; /* For image fitting and border-radius */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column; /* Stack image, info, status */
+}
+
+.project-card:hover {
+    transform: translateY(-5px); /* Lift effect */
+    box-shadow: 0 8px 20px rgba(var(--primary-blue-rgb), 0.2); /* Enhanced shadow */
+}
+
+.project-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* Ensure image covers area nicely */
+    border-bottom: 1px solid var(--light-gray); /* Separator */
+}
+
+.project-info {
+    padding: 15px;
+    flex-grow: 1; /* Allow info to take available space */
+    display: flex;
+    flex-direction: column; /* Align content vertically */
+}
+
+.project-info h5 { /* Project title */
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: var(--dark-blue);
+    font-size: 1.25rem;
+}
+
+.project-info .btn-preview { /* Styling for the preview button */
+    margin-top: 15px; /* Space above the button */
+    align-self: flex-start; /* Align button to the start of the flex container if needed */
+}
+
+
+.project-status { /* Container for status icon and text */
+    margin-top: auto; /* Push to bottom of card info */
+    padding-top: 10px; /* Add some space above status if preview button is also there */
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+}
+
+.project-status i { /* Status icon */
+    margin-right: 8px;
+    font-size: 1.1em;
+}
+
+.status-done { color: #28a745; /* Green for done */ }
+.status-done i { color: #28a745; }
+.status-pending { color: #ffc107; /* Amber/Yellow for pending */ }
+.status-pending i { color: #ffc107; }
+
+.status-pending .countdown-timer { /* Countdown text */
+    font-weight: bold;
+    color: var(--text-color);
+    margin-left: 5px;
+}
+
+/* Footer Styling Adjustments */
+.footer-section {
+    background-color: var(--dark-blue);
+    color: var(--white);
+    width: 100%;
+    padding: 20px 0; /* Basic padding */
+    position: relative; /* Ensure it's above bottom decorative gradient if they overlap */
+    z-index: 10;
+}
+
+.footer-link {
+    color: var(--light-gray);
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: var(--primary-blue);
+    text-decoration: none;
+}
+
+.footer-section .container { /* Assuming Bootstrap container class is used in footer HTML */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.project-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* Ensure image covers area nicely */
+    border-bottom: 1px solid var(--light-gray); /* Separator */
+    transform-origin: top center; /* Ensures the top edge stays in place during zoom */
+    transition: transform 0.3s ease; /* Smooth transition for zoom */
+}
+
+.project-image.zoomed {
+    transform: scale(1.2); /* Adjust scale factor as desired */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .project-grid {
+        grid-template-columns: 1fr; /* Single column on smaller screens */
+    }
+    .section-heading span {
+        padding: 0 10px; /* Reduce padding for heading text */
+    }
+    .gallery-header h4 {
+        font-size: 2.2rem; /* Adjust title size for mobile */
+    }
+    .fixed-home-link {
+        left: 15px !important; /* Move closer to edge on mobile */
+        transform: none; /* Remove transform if not needed for simpler positioning */
+        padding: 10px 15px; /* Slightly smaller padding */
+        font-size: 1rem; /* Adjust font size */
+    }
+    .fixed-home-link i {
+        font-size: 1.2rem; /* Adjust icon size */
+        margin-right: 8px; /* Adjust icon spacing */
+    }
+    .info-card {
+        margin-left: 10px; /* Reduce horizontal margin on small screens */
+        margin-right: 10px;
+        padding: 20px; /* Adjust padding */
+    }
+    .project-info .btn-preview {
+        align-self: stretch; /* Make button full width on small screens */
+        text-align: center;
+    }
+}
+
+/* Hide wavy background area on large screens (lg breakpoint and up) */
+@media (min-width: 992px) {
+    .info-cards-wavy-background-area {
+        display: none;
+    }
+}
+
+
+/* Any other general theme styles like .main-nav-large can be kept if they are global */
+.main-nav-large ul li a i { /* Example of a theme style you might have */
+    margin-right: 8px;
+}
+
+    </style>
+</head>
+<body class="gallery-page">
+
+    <!-- Fixed Home Link -->
+    <a href="index.html" class="fixed-home-link" title="Back to Home">
+        <i class="fas fa-home"></i> Home
+    </a>
+
+    <div class="page-container">
+        <header class="gallery-header py-4"> <!-- py-4 might be redundant if new padding is set -->
+            <div class="container text-center">
+                <h4>My Project Gallery</h4>
+            </div>
+        </header>
+
+        <!-- Top Decorative Gradient (Optional, if gallery-header doesn't cover full top) -->
+        <!-- <div class="decorative-gradient-section top-gradient"></div> -->
+        
+        <div class="info-cards-wavy-background-area">
+            <main class="main-content"> <!-- main-content is now inside the wavy background for these cards -->
+                <!-- Notification Card -->
+                <div class="info-card notification-card">
+                    <p><b>Quick Note:</b> This gallery showcases a variety of projects. Use the filters (coming soon!) to sort by category or technology. Some projects are live, while others are archived demos.</p>
+                    <div class="notification-actions mt-3">
+                        <a href="#contact-section" class="btn btn-primary me-2">Request a Project</a>
+                        <a href="index.html/#services-section" class="btn btn-outline-primary">View Services</a>
+                    </div>
+                </div>
+
+                <!-- Analysis Countdown Card -->
+                <div class="info-card analysis-countdown-card">
+                    <p>New portfolio analysis and case studies are updated periodically. Next update in: 
+                        <b id="countdown-timer">Loading countdown...</b>
+                    </p>
+                </div>
+            </main>
+        </div>
+            
+        <main class="main-content"> <!-- Separate main-content for projects below the wave -->
+            <h2 class="section-heading"><span>Featured Projects</span></h2>
+            <div class="project-grid">
+
+                <!-- Project Card 6: Done -->
+                <div class="project-card">
+                    <img src="images/Florist.jpg" alt="Project D" class="project-image">
+                    <div class="project-info">
+                        <h5>Project A - Florist Ke</h5>
+                        <p>An online shop for organised packages of flowers, snacks, gifts, movie tickets, date reservations in hotels and parks, scheduled visits to museums and many more </p>
+                        <a href="#" class="btn btn-sm btn-outline-primary btn-preview"><i class="fas fa-eye me-1"></i> Preview</a>
+                        <div class="project-status status-done">
+                            <i class="fas fa-check-circle"></i> Completed
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 3: Done -->
+                <div class="project-card">
+                    <img src="images/Analysis.jpg'" alt="Project Gamma" class="project-image">
+                    <div class="project-info">
+                        <h5>Project B - Data Visualization Dashboard</h5>
+                        <p>Interactive dashboard for visualizing complex datasets and trends.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary btn-preview"><i class="fas fa-eye me-1"></i> Preview</a>
+                        <div class="project-status status-done">
+                            <i class="fas fa-check-circle"></i> Completed
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project Card 3: Pending -->
+                <div class="project-card">
+                    <img src="images/CyberNet.jpg" alt="Project C" class="project-image">
+                    <div class="project-info">
+                        <h5>Project C - CyberNet Services</h5>
+                        <p>A proxy company dealing in crypto</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary btn-preview"><i class="fas fa-eye me-1"></i> Preview</a>
+                        <div class="project-status status-done">
+                            <i class="fas fa-check-circle"></i> Completed
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 4: pending -->
+                <div class="project-card">
+                    <img src="images/Comas_front.jpg" alt="Project Alpha" class="project-image">
+                    <div class="project-info">
+                        <h5>COMAS - E-commerce Platform</h5>
+                        <p>A full-featured online store with secure payments and inventory management.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary btn-preview"><i class="fas fa-eye me-1"></i> Preview</a>
+                        <div class="project-status status-pending">
+                            <i class="fas fa-hourglass-half"></i> Pending <span class="countdown-timer" data-end-date="2025-08-01T18:00:00"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 5: Pending -->
+                <div class="project-card">
+                    <img src="images/task-book.jpg" alt="Project Beta" class="project-image">
+                    <div class="project-info">
+                        <h5>Project Beta - Mobile Task Manager</h5>
+                        <p>A cross-platform app to organize daily tasks and boost productivity.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary btn-preview"><i class="fas fa-eye me-1"></i> Preview</a>
+                        <div class="project-status status-pending">
+                            <i class="fas fa-hourglass-half"></i> Pending <span class="countdown-timer" data-end-date="2025-07-15T10:00:00"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 6: Pending -->
+                <div class="project-card">
+                    <img src="images/ChatBot.jpg" alt="Project Delta" class="project-image">
+                    <div class="project-info">
+                        <h5>Project Delta - AI Chatbot</h5>
+                        <p>An intelligent chatbot for customer service automation.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary btn-preview"><i class="fas fa-eye me-1"></i> Preview</a>
+                        <div class="project-status status-pending">
+                            <i class="fas fa-hourglass-half"></i> Pending <span class="countdown-timer" data-end-date="2025-08-01T18:00:00"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 7: Pending -->
+                <div class="project-card">
+                    <img src="images/jobSearch.jpeg" alt="Project Delta" class="project-image">
+                    <div class="project-info">
+                        <h5>Project S - Job Search website</h5>
+                        <p>LinkedIn like website for job searching</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary btn-preview"><i class="fas fa-eye me-1"></i> Preview</a>
+                        <div class="project-status status-pending">
+                            <i class="fas fa-hourglass-half"></i> Pending <span class="countdown-timer" data-end-date="2025-08-01T18:00:00"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 8: Pending -->
+                <div class="project-card">
+                    <img src="images/tradingImage.jpeg" alt="Project Delta" class="project-image">
+                    <div class="project-info">
+                        <h5>Project Alpha - Tradin Models</h5>
+                        <p>Accurate trading models to grow your finances</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary btn-preview"><i class="fas fa-eye me-1"></i> Preview</a>
+                        <div class="project-status status-pending">
+                            <i class="fas fa-hourglass-half"></i> Pending <span class="countdown-timer" data-end-date="2025-08-01T18:00:00"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 9: Pending -->
+                <div class="project-card">
+                    <img src="images/dietImage.webp" alt="Project Delta" class="project-image">
+                    <div class="project-info">
+                        <h5>Project H - Health optimization model</h5>
+                        <p>A model to help in weight loss, blood pressure and other diet related illnesses</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary btn-preview"><i class="fas fa-eye me-1"></i> Preview</a>
+                        <div class="project-status status-pending">
+                            <i class="fas fa-hourglass-half"></i> Pending <span class="countdown-timer" data-end-date="2025-08-01T18:00:00"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Decorative Gradient (Optional) -->
+        <!-- <div class="decorative-gradient-section bottom-gradient"></div> -->
+    </div>
+
+    <footer class="footer-section text-white py-4">
+        <div class="container text-center"> <!-- Simplified footer for example -->
+            <p>&copy; <span id="current-year"></span> M.Joshua. All Rights Reserved.</p>
+            <p>
+                <a href="index.html" class="footer-link">Home</a> | 
+                <a href="#" class="footer-link">Privacy Policy</a> | 
+                <a href="#" class="footer-link">Terms of Service</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/app.js"></script>
+    <script>
+        // Ensure current year is updated in footer
+        const currentYearSpan = document.getElementById('current-year');
+        if (currentYearSpan) {
+            currentYearSpan.textContent = new Date().getFullYear();
+        }
+
+// Zoom effect for project images
+// This refined script relies on CSS for transition, transform-origin, and the zoomed state.
+document.addEventListener('DOMContentLoaded', function () { 
+    const projectImages = document.querySelectorAll('.project-card .project-image');
+
+    projectImages.forEach(image => {
+        image.addEventListener('mouseenter', function () {
+            this.classList.add('zoomed'); 
+        });
+
+        image.addEventListener('mouseleave', function () {
+            this.classList.remove('zoomed');
+        });
+    });
+});
+    </script>
+</body>
+</html>
