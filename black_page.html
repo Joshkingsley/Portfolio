@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="copyright" content="This is property of M.Joshua Bsc. Owner of CyberNet Industries">
+        <style>
+            /*css styles here */
+            /* make the body have a blue white theme. Cartoon-like yet aesthetic. Include a repetitive 'drop of water loading animation'*/
+        </style>
+    </head>
+    <body>
+        <div>
+            <b id="error-statement"></b>
+            <div>
+                <button id="consent-btn"><i class="fas fa-"></i> Yes</button>
+                <button id="Deny-btn">i class="fas fa-"></i> No</button>
+        </div>
+        </div>
+        <div class="hidden-class" style="display: none;">
+            <b>Kindly enter either below: </b>
+            <form id="contact-info" method="POST" action=" url '">
+                <label for="email">Enter your email</label>
+                <input name="email" type="email" id="email" placeholder="johndoe123@gmail.com">
+                <label for="phone-number">Enter your phone number</label>
+                <input id="number" name="phone-number" type="numberical" placeholder="">
+            </form>
+            <button id="submit-btn" type="submit">Confirm</button>
+        </div>
+    </body>
+    <script>
+        class custom_text {
+            animated_text = function (self){
+                self.error_statement = ""
+                self.full_error_statement = "This page is currently being updated. We will notify you when all updates are complete. Do you consent?"
+                self.index = 0
+            }
+
+            type_next_character = function(self) {
+                while (self.index < length(self.full_error_statement)) {
+                    self.error_statement += self.full_error_statement[self.index]
+                    self.index += 1
+                }
+                return self.error_statement
+            }
+        }
+        //page reloading listener here....
+        //When page reloads the custom text class is called to write the respective text
+        document.getElementById(error-statement) //...to print out the b on the screen
+
+        document.getElementById('constent-btn').addEventListener('click', () => {
+            //unhide the contact info form and call a fetch link to django as follows
+            email = document.getElementById('email').value;
+            phone_number = document.getElementById('number').value;
+
+            fetch('/consent-link', ()=> {
+                headers = {
+                    'content-type': 'application/json',
+                    'X-CSRFToken': ''
+                },
+                payload = {
+                    'email': email,
+                    'phone_number': phone_number, //if either or all are present
+                }
+            }).then() // print a thanl you message and do as the deny-btn below
+        })
+        document.getElementById('Deny-btn').addEventListener('click', () => {
+            //print a thank you message then...
+            window.location.href = '/M.Joshua/'
+        })
+
+    </script>
+</html>
