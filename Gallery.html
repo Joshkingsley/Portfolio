@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Gallery - M.Joshua</title>
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome CSS -->
@@ -11,438 +12,477 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
+        /* CSS Variables */
+        :root {
+            --primary-blue: #50aaff;
+            --primary-blue-rgb: 80, 170, 255;
+            --dark-blue: #0a2e50;
+            --dark-blue-lighter: #2a5275;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --text-color: #333;
+            --gradient-start: #e0f0ff;
+        }
 
-/* CSS Variables (Ensure these are defined, ideally once at the top of your <style> block or in an external file) */
-    :root {
-    --primary-blue: #50aaff;
-    --primary-blue-rgb: 80, 170, 255;
-    --dark-blue: #0a2e50;
-    --dark-blue-lighter: #2a5275; /* Lighter shade for header */
-    --white: #ffffff;
-    --light-gray: #f8f9fa;
-    --text-color: #333;
-    --gradient-start: #e0f0ff; /* Lighter blue for info cards */
-}
+        /* General Page Structure for Gallery */
+        .gallery-page {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: var(--white);
+        }
 
-/* General Page Structure for Gallery */
-.gallery-page { /* Apply this class to the <body> tag of your gallery page */
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: var(--white); /* Base background for the page */
-    padding-top: 0; /* Override any default body padding if needed */
-}
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            position: relative;
+        }
 
-.page-container { /* Main wrapper inside .gallery-page */
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    position: relative; /* For stacking context of child elements */
-}
+        /* Fixed Home Link */
+        .fixed-home-link {
+            position: fixed;
+            top: 25px;
+            left: 5%;
+            transform: translateX(-5%);
+            background-color: rgba(var(--primary-blue-rgb), 0.9);
+            color: var(--white);
+            padding: 12px 20px;
+            border-radius: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            z-index: 1050;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
 
-/* Fixed Home Link */
-.fixed-home-link {
-    position: fixed;
-    top: 25px;
-    left: 5%; /* Adjust as needed for desired offset */
-    transform: translateX(-5%); /* Helps if the element's width is dynamic */
-    background-color: rgba(var(--primary-blue-rgb), 0.9);
-    color: var(--white);
-    padding: 12px 20px; /* Increased padding for text and icon */
-    border-radius: 25px; /* Rounded rectangle shape */
-    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-    z-index: 1050; /* Ensure it's above most other content */
-    transition: all 0.3s ease;
-    font-size: 1.1rem; /* Enlarged text/icon */
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    text-decoration: none; /* Removes underline */
-}
+        .fixed-home-link i {
+            font-size: 1.4rem;
+            margin-right: 10px;
+        }
 
-.fixed-home-link i {
-    font-size: 1.4rem; /* Enlarged icon */
-    margin-right: 10px; /* Space between icon and "Home" text */
-}
+        .fixed-home-link:hover {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            transform: translateX(-5%) scale(1.05);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+            text-decoration: none;
+        }
 
-.fixed-home-link:hover {
-    background-color: var(--dark-blue);
-    color: var(--white);
-    transform: translateX(-5%) scale(1.05); /* Slight scale on hover */
-    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-    text-decoration: none; /* Ensure no underline on hover */
-}
+        /* Gallery Header Styling */
+        .gallery-header {
+            background: var(--dark-blue-lighter);
+            padding: 25px 20px;
+            margin-bottom: 0;
+            position: relative;
+            z-index: 10;
+        }
 
-/* Gallery Header Styling */
-.gallery-header {
-    background: var(--dark-blue-lighter); /* Lightened dark blue background */
-    padding: 25px 20px; /* Generous padding */
-    margin-bottom: 0; /* Connects directly to wavy area or content below */
-    position: relative;
-    z-index: 10; /* Above top decorative gradient if one exists directly below */
-}
+        .gallery-header h4 {
+            text-align: center;
+            font-size: 2.6rem;
+            color: var(--white);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            margin-bottom: 0;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            letter-spacing: 0.5px;
+        }
 
-.gallery-header h4 {
-    text-align: center;
-    font-size: 2.6rem; /* Prominent size */
-    color: var(--white); /* White text for contrast */
-    font-family: 'Poppins', sans-serif; /* Formal, clean font */
-    font-weight: 600; /* Semi-bold for impact */
-    margin-bottom: 0;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.2); /* Subtle shadow for depth */
-    letter-spacing: 0.5px; /* Slightly wider letter spacing */
-}
+        /* Wavy Background Area for Info Cards (Small Screens Only) */
+        .info-cards-wavy-background-area {
+            position: absolute; /* Position absolutely to sit behind content */
+            top: 0; /* Align to top of its relative parent */
+            left: 0;
+            width: 100%;
+            height: 250px; /* Adjust height based on content it should cover */
+            background: linear-gradient(to bottom, var(--dark-blue-lighter) 0%, var(--primary-blue) 70%, var(--white) 100%);
+            z-index: 1; /* Below main-content and fixed elements */
+            overflow: hidden;
+            /* Apply only on small screens */
+            display: none; /* Hidden by default */
+        }
 
-/* Wavy Background Area for Info Cards */
-.info-cards-wavy-background-area {
-    position: relative;
-    padding: 1px 0 80px 0; /* 1px top padding to prevent margin collapse, 80px bottom for wave */
-    margin-top: 0; /* Connects to header */
-    background: linear-gradient(to bottom, var(--dark-blue-lighter) 0%, var(--primary-blue) 70%, var(--white) 100%);
-    z-index: 2; /* Above page background, below info cards */
-    overflow: hidden; /* Important for pseudo-element wave clipping */
-}
+        .info-cards-wavy-background-area::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='1' d='M0,128L480,224L960,128L1440,224L1440,320L960,320L480,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: bottom;
+            background-size: 100% 80px;
+            z-index: 2;
+        }
 
-.info-cards-wavy-background-area::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 80px; /* Height of the SVG wave */
-    /* Low frequency, broad peaks SVG wave */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffffff' fill-opacity='1' d='M0,128L480,224L960,128L1440,224L1440,320L960,320L480,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: bottom;
-    background-size: 100% 80px; /* Control height of SVG wave */
-    z-index: 2; /* Same level as parent's content, drawn on top of its background */
-}
+        /* Main Content Area */
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+            z-index: 5;
+        }
 
-/* Main Content Area (used for sections within and after wavy area) */
-.main-content { /* This class can be used for multiple content sections */
-    flex-grow: 1;
-    padding: 20px;
-    max-width: 1200px; /* Standard content width */
-    margin: 0 auto; /* Center content */
-    width: 100%;
-    position: relative; /* For z-indexing children if needed */
-    z-index: 5; /* Above page-level gradients, below fixed elements */
-}
+        /* Info Card Styling */
+        .info-card {
+            background-color: var(--gradient-start);
+            border-left: 5px solid var(--primary-blue);
+            padding: 25px;
+            margin: 25px auto;
+            border-radius: 10px;
+            max-width: 700px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            z-index: 3; /* Ensure it's above the wavy background when active */
+        }
 
-/* Info Card Styling (for Note and Analysis Countdown) */
-.info-card {
-    background-color: var(--gradient-start); /* Light blue background */
-    border-left: 5px solid var(--primary-blue); /* Accent border */
-    padding: 25px; /* Comfortable padding */
-    margin: 25px auto; /* Spacing and centering */
-    border-radius: 10px; /* Softer corners */
-    max-width: 700px; /* Optimal readability width */
-    text-align: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Subtle shadow */
-    position: relative; /* To sit above the wavy background */
-    z-index: 3; /* Higher than the wavy background's pseudo-element */
-}
+        .info-card p {
+            margin-bottom: 15px;
+            color: var(--dark-blue);
+            font-size: 1.05rem;
+        }
 
-.info-card p {
-    margin-bottom: 15px;
-    color: var(--dark-blue);
-    font-size: 1.05rem; /* Slightly larger for readability */
-}
+        .info-card b {
+            color: var(--dark-blue);
+            font-weight: 600;
+        }
 
-.info-card b {
-    color: var(--dark-blue);
-    font-weight: 600;
-}
+        .notification-actions a {
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
 
-.notification-actions a { /* General styling for links within notification actions */
-    text-decoration: none;
-    font-weight: 500;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    /* Specific button styling (like .btn, .btn-primary) should be applied in HTML */
-}
+        .analysis-countdown-card b {
+            font-size: 1.2rem;
+        }
 
-.analysis-countdown-card b { /* Specific styling for countdown text */
-    font-size: 1.2rem;
-}
+        /* Section Heading with Lines */
+        .section-heading {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+            color: var(--dark-blue);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-/* Section Heading with Lines */
-.section-heading {
-    text-align: center;
-    margin-top: 40px;
-    margin-bottom: 30px;
-    font-size: 1.8rem;
-    color: var(--dark-blue);
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        .section-heading span {
+            padding: 0 20px;
+            background-color: var(--white);
+            z-index: 1;
+        }
 
-.section-heading span { /* The text part of the heading */
-    padding: 0 20px;
-    background-color: var(--white); /* To sit above the lines */
-    z-index: 1;
-}
+        .section-heading::before,
+        .section-heading::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background-color: rgba(var(--primary-blue-rgb), 0.3);
+            z-index: 0;
+        }
 
-.section-heading::before,
-.section-heading::after { /* The decorative lines */
-    content: '';
-    flex-grow: 1;
-    height: 1px;
-    background-color: rgba(var(--primary-blue-rgb), 0.3); /* Light blue lines */
-    z-index: 0;
-}
+        .section-heading::before {
+            margin-right: -10px;
+        }
 
-.section-heading::before {
-    margin-right: -10px; /* Adjust to get closer to text */
-}
+        .section-heading::after {
+            margin-left: -10px;
+        }
 
-.section-heading::after {
-    margin-left: -10px; /* Adjust to get closer to text */
-}
+        /* Filter and Search Section */
+        .filter-search-section {
+            background-color: var(--light-gray);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
 
-/* Project Grid */
-.project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
-    gap: 25px; /* Space between cards */
-    margin-top: 20px;
-}
+        .filter-search-section .form-control,
+        .filter-search-section .form-select {
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            font-size: 1rem;
+        }
 
-/* Project Card */
-.project-card {
-    background-color: var(--white);
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    overflow: hidden; /* For image fitting and border-radius */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column; /* Stack image, info, status */
-}
+        .filter-search-section .btn {
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 1rem;
+        }
 
-.project-card:hover {
-    transform: translateY(-5px); /* Lift effect */
-    box-shadow: 0 8px 20px rgba(var(--primary-blue-rgb), 0.2); /* Enhanced shadow */
-}
+        /* Project Grid */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
 
-.project-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover; /* Ensure image covers area nicely */
-    border-bottom: 1px solid var(--light-gray); /* Separator */
-}
+        /* Project Card */
+        .project-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
 
-.project-info {
-    padding: 15px;
-    flex-grow: 1; /* Allow info to take available space */
-    display: flex;
-    flex-direction: column; /* Align content vertically */
-}
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(var(--primary-blue-rgb), 0.2);
+        }
 
-.project-info h5 { /* Project title */
-    margin-top: 0;
-    margin-bottom: 10px;
-    color: var(--dark-blue);
-    font-size: 1.25rem;
-}
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--light-gray);
+            transform-origin: top center;
+            transition: transform 0.3s ease;
+        }
 
-.project-info .btn-preview { /* Styling for the preview button */
-    margin-top: 15px; /* Space above the button */
-    align-self: flex-start; /* Align button to the start of the flex container if needed */
-}
+        .project-image.zoomed {
+            transform: scale(1.2);
+        }
 
+        .project-info {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
 
-.project-status { /* Container for status icon and text */
-    margin-top: auto; /* Push to bottom of card info */
-    padding-top: 10px; /* Add some space above status if preview button is also there */
-    font-size: 0.9rem;
-    display: flex;
-    align-items: center;
-}
+        .project-info h5 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: var(--dark-blue);
+            font-size: 1.25rem;
+        }
 
-.project-status i { /* Status icon */
-    margin-right: 8px;
-    font-size: 1.1em;
-}
+        .project-info .btn-preview {
+            margin-top: 15px;
+            align-self: flex-start;
+        }
 
-.status-done { color: #28a745; /* Green for done */ }
-.status-done i { color: #28a745; }
-.status-pending { color: #ffc107; /* Amber/Yellow for pending */ }
-.status-pending i { color: #ffc107; }
+        .project-status {
+            margin-top: auto;
+            padding-top: 10px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+        }
 
-.status-pending .countdown-timer { /* Countdown text */
-    font-weight: bold;
-    color: var(--text-color);
-    margin-left: 5px;
-}
+        .project-status i {
+            margin-right: 8px;
+            font-size: 1.1em;
+        }
 
-/* Footer Styling Adjustments */
-.footer-section {
-    background-color: var(--dark-blue);
-    color: var(--white);
-    width: 100%;
-    padding: 20px 0; /* Basic padding */
-    position: relative; /* Ensure it's above bottom decorative gradient if they overlap */
-    z-index: 10;
-}
+        .status-done { color: #28a745; }
+        .status-done i { color: #28a745; }
+        .status-pending { color: #ffc107; }
+        .status-pending i { color: #ffc107; }
 
-.footer-link {
-    color: var(--light-gray);
-    transition: color 0.3s ease;
-}
+        .status-pending .countdown-timer {
+            font-weight: bold;
+            color: var(--text-color);
+            margin-left: 5px;
+        }
 
-.footer-link:hover {
-    color: var(--primary-blue);
-    text-decoration: none;
-}
+        /* Footer Styling Adjustments */
+        .footer-section {
+            background-color: var(--dark-blue);
+            color: var(--white);
+            width: 100%;
+            padding: 20px 0;
+            position: relative;
+            z-index: 10;
+        }
 
-.footer-section .container { /* Assuming Bootstrap container class is used in footer HTML */
-    max-width: 1200px;
-    margin: 0 auto;
-}
+        .footer-link {
+            color: var(--light-gray);
+            transition: color 0.3s ease;
+        }
 
-.project-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover; /* Ensure image covers area nicely */
-    border-bottom: 1px solid var(--light-gray); /* Separator */
-    transform-origin: top center; /* Ensures the top edge stays in place during zoom */
-    transition: transform 0.3s ease; /* Smooth transition for zoom */
-}
+        .footer-link:hover {
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
 
-.project-image.zoomed {
-    transform: scale(1.2); /* Adjust scale factor as desired */
-}
+        .footer-link i {
+            transition: transform 0.3s ease;
+        }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .project-grid {
-        grid-template-columns: 1fr; /* Single column on smaller screens */
-    }
-    .section-heading span {
-        padding: 0 10px; /* Reduce padding for heading text */
-    }
-    .gallery-header h4 {
-        font-size: 2.2rem; /* Adjust title size for mobile */
-    }
-    .fixed-home-link {
-        left: 15px !important; /* Move closer to edge on mobile */
-        transform: none; /* Remove transform if not needed for simpler positioning */
-        padding: 10px 15px; /* Slightly smaller padding */
-        font-size: 1rem; /* Adjust font size */
-    }
-    .fixed-home-link i {
-        font-size: 1.2rem; /* Adjust icon size */
-        margin-right: 8px; /* Adjust icon spacing */
-    }
-    .info-card {
-        margin-left: 10px; /* Reduce horizontal margin on small screens */
-        margin-right: 10px;
-        padding: 20px; /* Adjust padding */
-    }
-    .project-info .btn-preview {
-        align-self: stretch; /* Make button full width on small screens */
-        text-align: center;
-    }
-}
+        .footer-link:hover i {
+            transform: scale(1.1);
+        }
 
-/* Hide wavy background area on large screens (lg breakpoint and up) */
-@media (min-width: 992px) {
-    .info-cards-wavy-background-area {
-        display: none;
-    }
-}
+        /* Responsive Adjustments */
+        @media (max-width: 991.98px) {
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+            .section-heading span {
+                padding: 0 10px;
+            }
+            .gallery-header h4 {
+                font-size: 2.2rem;
+            }
+            .fixed-home-link {
+                left: 15px !important;
+                transform: none;
+                padding: 10px 15px;
+                font-size: 1rem;
+            }
+            .fixed-home-link i {
+                font-size: 1.2rem;
+                margin-right: 8px;
+            }
+            .info-card {
+                margin-left: 10px;
+                margin-right: 10px;
+                padding: 20px;
+            }
+            .project-info .btn-preview {
+                align-self: stretch;
+                text-align: center;
+            }
+            /* Show wavy background area on small screens */
+            .info-cards-wavy-background-area {
+                display: block;
+            }
+        }
 
-
-/* Any other general theme styles like .main-nav-large can be kept if they are global */
-.main-nav-large ul li a i { /* Example of a theme style you might have */
-    margin-right: 8px;
-}
-
+        @media (max-width: 768px) {
+            .filter-search-section .col-md-auto {
+                margin-bottom: 15px; /* Add space between stacked filter elements */
+            }
+        }
+        @media (max-width: 575.98px) {
+            .gallery-header h4 {
+                font-size: 1.8rem;
+            }
+            .fixed-home-link {
+                top: 15px;
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+            .fixed-home-link i {
+                font-size: 1rem;
+            }
+            .info-card {
+                margin-left: 5px;
+                margin-right: 5px;
+                padding: 15px;
+            }
+            .info-card p {
+                font-size: 0.95rem;
+            }
+            .info-cards-wavy-background-area {
+                height: 200px; /* Adjust height for very small screens */
+            }
+            .info-cards-wavy-background-area::after {
+                height: 60px; /* Adjust wave height */
+                background-size: 100% 60px;
+            }
+        }
     </style>
 </head>
 <body class="gallery-page">
 
     <!-- Fixed Home Link -->
-    <a href="index.html" class="fixed-home-link" title="Back to Home">
+    <a href="/" class="fixed-home-link" title="Back to Home">
         <i class="fas fa-home"></i> Home
     </a>
 
     <div class="page-container">
-        <header class="gallery-header py-4"> <!-- py-4 might be redundant if new padding is set -->
+        <header class="gallery-header py-4">
             <div class="container text-center">
                 <h4>My Project Gallery</h4>
             </div>
         </header>
 
-        <!-- Top Decorative Gradient (Optional, if gallery-header doesn't cover full top) -->
-        <!-- <div class="decorative-gradient-section top-gradient"></div> -->
-        
-        <div class="info-cards-wavy-background-area">
-            <main class="main-content"> <!-- main-content is now inside the wavy background for these cards -->
-                <!-- Notification Card -->
-                <div class="info-card notification-card">
-                    <p><b>Quick Note:</b> This gallery showcases a variety of projects. Use the filters (coming soon!) to sort by category or technology. Some projects are live, while others are archived demos.</p>
-                    <div class="notification-actions mt-3">
-                        <a href="#contact-section" class="btn btn-primary me-2">Request a Project</a>
-                        <a href="index.html/#services-section" class="btn btn-outline-primary">View Services</a>
+        <!-- Wavy Background Area (Visible only on small screens) -->
+        <div class="info-cards-wavy-background-area d-lg-none"></div>
+            
+        <main class="main-content">
+            <!-- Notification Card -->
+            <div class="info-card notification-card">
+                <p><b>Quick Note:</b> This gallery showcases a variety of projects. Use the filters to sort by category or technology. Some projects are live, while others are archived demos.</p>
+                <div class="notification-actions mt-3">
+                    <a href="/#contact-section" class="btn btn-primary me-2">Request a Project</a>
+                    <a href="/#services-section" class="btn btn-outline-primary">View Services</a>
+                </div>
+            </div>
+
+            <!-- Analysis Countdown Card -->
+            <div class="info-card analysis-countdown-card">
+                <p>New portfolio analysis and case studies are updated periodically. Next update in: 
+                    <b id="countdown-timer">Loading countdown...</b>
+                </p>
+            </div>
+
+            <!-- Filter and Search Section -->
+            <div class="filter-search-section mt-5">
+                <h3 class="text-center mb-4" style="color: var(--dark-blue);">Filter & Search Projects</h3>
+                <div class="row g-3 align-items-center justify-content-center">
+                    <div class="col-md-4">
+                        <input type="text" class="form-control" id="search-input" placeholder="Search by title or keyword...">
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" id="category-filter">
+                            <option value="all">All Categories</option>
+                            <option value="web-services">Web Services</option>
+                            <option value="analysis-scripts-blogs">Analysis Scripts & Blogs</option>
+                            <option value="automation-scripts">Automation Scripts</option>
+                            <option value="api-integration">API Integration</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select" id="status-filter">
+                            <option value="all">All Statuses</option>
+                            <option value="done">Completed</option>
+                            <option value="pending">Pending</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 d-grid">
+                        <button class="btn btn-primary" id="apply-filters">Apply Filters</button>
                     </div>
                 </div>
+            </div>
 
-                <!-- Analysis Countdown Card -->
-                <div class="info-card analysis-countdown-card">
-                    <p>New portfolio analysis and case studies are updated periodically. Next update in: 
-                        <b id="countdown-timer">Loading countdown...</b>
-                    </p>
-                </div>
-            </main>
-        </div>
-            
-        <main class="main-content"> <!-- Separate main-content for projects below the wave -->
-            <h2 class="section-heading"><span>Featured Projects</span></h2>
-            <div class="project-grid">
-
-                <!-- Project Card 6: Done -->
-                <div class="project-card">
-                    <img src="images/Florist.jpg" alt="Project D" class="project-image">
+            <!-- Web Services Section -->
+            <h2 class="section-heading" id="web-services-section"><span>Web Services</span></h2>
+            <div class="project-grid" id="web-services-grid">
+                <!-- Project Card 1: Florist Ke -->
+                <div class="project-card" data-category="web-services" data-status="done">
+                    <img src="images/Florist.jpg" alt="Project A" class="project-image">
                     <div class="project-info">
                         <h5>Project A - Florist Ke</h5>
-                        <p>An online shop for organised packages of flowers, snacks, gifts, movie tickets, date reservations in hotels and parks, scheduled visits to museums and many more </p>
+                        <p>An online shop for organized packages of flowers, snacks, gifts, movie tickets, date reservations in hotels and parks, scheduled visits to museums and many more.</p>
                         <a href="#" class="btn btn-sm btn-outline-primary btn-preview"><i class="fas fa-eye me-1"></i> Preview</a>
                         <div class="project-status status-done">
                             <i class="fas fa-check-circle"></i> Completed
                         </div>
                     </div>
                 </div>
-
-                <!-- Project Card 3: Done -->
-                <div class="project-card">
-                    <img src="images/Analysis.jpg'" alt="Project Gamma" class="project-image">
-                    <div class="project-info">
-                        <h5>Project B - Data Visualization Dashboard</h5>
-                        <p>Interactive dashboard for visualizing complex datasets and trends.</p>
-                        <a href="#" class="btn btn-sm btn-outline-primary btn-preview"><i class="fas fa-eye me-1"></i> Preview</a>
-                        <div class="project-status status-done">
-                            <i class="fas fa-check-circle"></i> Completed
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Project Card 3: Pending -->
-                <div class="project-card">
-                    <img src="images/CyberNet.jpg" alt="Project C" class="project-image">
-                    <div class="project-info">
-                        <h5>Project C - CyberNet Services</h5>
-                        <p>A proxy company dealing in crypto</p>
-                        <a href="#" class="btn btn-sm btn-outline-primary btn-preview"><i class="fas fa-eye me-1"></i> Preview</a>
-                        <div class="project-status status-done">
-                            <i class="fas fa-check-circle"></i> Completed
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project Card 4: pending -->
-                <div class="project-card">
+                <!-- Project Card 2: COMAS - E-commerce Platform -->
+                <div class="project-card" data-category="web-services" data-status="pending">
                     <img src="images/Comas_front.jpg" alt="Project Alpha" class="project-image">
                     <div class="project-info">
                         <h5>COMAS - E-commerce Platform</h5>
@@ -453,65 +493,111 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Project Card 5: Pending -->
-                <div class="project-card">
-                    <img src="images/task-book.jpg" alt="Project Beta" class="project-image">
+                <!-- Project Card 3: Job Search website -->
+                <div class="project-card" data-category="web-services" data-status="pending">
+                    <img src="images/jobSearch.jpeg" alt="Project S" class="project-image">
                     <div class="project-info">
-                        <h5>Project Beta - Mobile Task Manager</h5>
-                        <p>A cross-platform app to organize daily tasks and boost productivity.</p>
+                        <h5>Project S - Job Search Website</h5>
+                        <p>LinkedIn-like website for job searching, connecting employers with job seekers.</p>
                         <a href="#" class="btn btn-sm btn-outline-primary btn-preview"><i class="fas fa-eye me-1"></i> Preview</a>
                         <div class="project-status status-pending">
-                            <i class="fas fa-hourglass-half"></i> Pending <span class="countdown-timer" data-end-date="2025-07-15T10:00:00"></span>
+                            <i class="fas fa-hourglass-half"></i> Pending <span class="countdown-timer" data-end-date="2025-08-01T18:00:00"></span>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Project Card 6: Pending -->
-                <div class="project-card">
+            <!-- Analysis Scripts & Blogs Section -->
+            <h2 class="section-heading" id="analysis-scripts-blogs-section"><span>Analysis Scripts & Blogs</span></h2>
+            <div class="project-grid" id="analysis-scripts-blogs-grid">
+                <!-- Project Card 4: Data Visualization Dashboard -->
+                <div class="project-card" data-category="analysis-scripts-blogs" data-status="done">
+                    <img src="images/Analysis.jpg" alt="Project Gamma" class="project-image">
+                    <div class="project-info">
+                        <h5>Project B - Data Visualization Dashboard</h5>
+                        <p>Interactive dashboard for visualizing complex datasets and trends, providing actionable insights.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary btn-preview"><i class="fas fa-eye me-1"></i> Preview</a>
+                        <div class="project-status status-done">
+                            <i class="fas fa-check-circle"></i> Completed
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Card 5: Predictive Sales Model -->
+                <div class="project-card" data-category="analysis-scripts-blogs" data-status="done">
+                    <img src="images/Florist.jpg" alt="Project D" class="project-image">
+                    <div class="project-info">
+                        <h5>Project D - Predictive Sales Model</h5>
+                        <p>Machine learning model to forecast future sales based on historical data and external factors.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary btn-preview"><i class="fas fa-eye me-1"></i> Preview</a>
+                        <div class="project-status status-done">
+                            <i class="fas fa-check-circle"></i> Completed
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Card 6: Health Optimization Model -->
+                <div class="project-card" data-category="analysis-scripts-blogs" data-status="pending">
+                    <img src="images/dietImage.webp" alt="Project H" class="project-image">
+                    <div class="project-info">
+                        <h5>Project H - Health Optimization Model</h5>
+                        <p>A model to help in weight loss, blood pressure management, and other diet-related illnesses.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary btn-preview"><i class="fas fa-eye me-1"></i> Preview</a>
+                        <div class="project-status status-pending">
+                            <i class="fas fa-hourglass-half"></i> Pending <span class="countdown-timer" data-end-date="2025-08-01T18:00:00"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Automation Scripts Section -->
+            <h2 class="section-heading" id="automation-scripts-section"><span>Automation Scripts</span></h2>
+            <div class="project-grid" id="automation-scripts-grid">
+                <!-- Project Card 7: Automated Data Pipeline -->
+                <div class="project-card" data-category="automation-scripts" data-status="done">
+                    <img src="images/Keys.png" alt="Project Beta" class="project-image">
+                    <div class="project-info">
+                        <h5>Project E - Automated Data Pipeline</h5>
+                        <p>Developed a robust data pipeline using Python scripts and cloud services for real-time data ingestion and processing.</p>
+                        <a href="#" class="btn btn-sm btn-outline-primary btn-preview"><i class="fas fa-eye me-1"></i> Preview</a>
+                        <div class="project-status status-done">
+                            <i class="fas fa-check-circle"></i> Completed
+                        </div>
+                    </div>
+                </div>
+                <!-- Project Card 8: AI Chatbot -->
+                <div class="project-card" data-category="automation-scripts" data-status="pending">
                     <img src="images/ChatBot.jpg" alt="Project Delta" class="project-image">
                     <div class="project-info">
-                        <h5>Project Delta - AI Chatbot</h5>
-                        <p>An intelligent chatbot for customer service automation.</p>
+                        <h5>Project F - AI Chatbot</h5>
+                        <p>An intelligent chatbot for customer service automation and efficient query handling.</p>
                         <a href="#" class="btn btn-sm btn-outline-primary btn-preview"><i class="fas fa-eye me-1"></i> Preview</a>
                         <div class="project-status status-pending">
                             <i class="fas fa-hourglass-half"></i> Pending <span class="countdown-timer" data-end-date="2025-08-01T18:00:00"></span>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Project Card 7: Pending -->
-                <div class="project-card">
-                    <img src="images/jobSearch.jpeg" alt="Project Delta" class="project-image">
+            <!-- Generalized API Integration Section -->
+            <h2 class="section-heading" id="api-integration-section"><span>Generalized API Integration</span></h2>
+            <div class="project-grid" id="api-integration-grid">
+                <!-- Project Card 9: CyberNet Services -->
+                <div class="project-card" data-category="api-integration" data-status="done">
+                    <img src="images/CyberNet.jpg" alt="Project C" class="project-image">
                     <div class="project-info">
-                        <h5>Project S - Job Search website</h5>
-                        <p>LinkedIn like website for job searching</p>
+                        <h5>Project C - CyberNet Services</h5>
+                        <p>A proxy company dealing in crypto, integrating various financial APIs for seamless transactions.</p>
                         <a href="#" class="btn btn-sm btn-outline-primary btn-preview"><i class="fas fa-eye me-1"></i> Preview</a>
-                        <div class="project-status status-pending">
-                            <i class="fas fa-hourglass-half"></i> Pending <span class="countdown-timer" data-end-date="2025-08-01T18:00:00"></span>
+                        <div class="project-status status-done">
+                            <i class="fas fa-check-circle"></i> Completed
                         </div>
                     </div>
                 </div>
-
-                <!-- Project Card 8: Pending -->
-                <div class="project-card">
-                    <img src="images/tradingImage.jpeg" alt="Project Delta" class="project-image">
+                <!-- Project Card 10: Trading Models -->
+                <div class="project-card" data-category="api-integration" data-status="pending">
+                    <img src="images/tradingImage.jpeg" alt="Project Alpha" class="project-image">
                     <div class="project-info">
-                        <h5>Project Alpha - Tradin Models</h5>
-                        <p>Accurate trading models to grow your finances</p>
-                        <a href="#" class="btn btn-sm btn-outline-primary btn-preview"><i class="fas fa-eye me-1"></i> Preview</a>
-                        <div class="project-status status-pending">
-                            <i class="fas fa-hourglass-half"></i> Pending <span class="countdown-timer" data-end-date="2025-08-01T18:00:00"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project Card 9: Pending -->
-                <div class="project-card">
-                    <img src="images/dietImage.webp" alt="Project Delta" class="project-image">
-                    <div class="project-info">
-                        <h5>Project H - Health optimization model</h5>
-                        <p>A model to help in weight loss, blood pressure and other diet related illnesses</p>
+                        <h5>Project Alpha - Trading Models</h5>
+                        <p>Accurate trading models to grow your finances, integrating with real-time market data APIs.</p>
                         <a href="#" class="btn btn-sm btn-outline-primary btn-preview"><i class="fas fa-eye me-1"></i> Preview</a>
                         <div class="project-status status-pending">
                             <i class="fas fa-hourglass-half"></i> Pending <span class="countdown-timer" data-end-date="2025-08-01T18:00:00"></span>
@@ -521,15 +607,13 @@
             </div>
         </main>
 
-        <!-- Bottom Decorative Gradient (Optional) -->
-        <!-- <div class="decorative-gradient-section bottom-gradient"></div> -->
     </div>
 
     <footer class="footer-section text-white py-4">
-        <div class="container text-center"> <!-- Simplified footer for example -->
+        <div class="container text-center">
             <p>&copy; <span id="current-year"></span> M.Joshua. All Rights Reserved.</p>
             <p>
-                <a href="index.html" class="footer-link">Home</a> | 
+                <a href="/" class="footer-link">Home</a> | 
                 <a href="#" class="footer-link">Privacy Policy</a> | 
                 <a href="#" class="footer-link">Terms of Service</a>
             </p>
@@ -538,30 +622,169 @@
 
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom JS -->
-    <script src="js/app.js"></script>
     <script>
-        // Ensure current year is updated in footer
-        const currentYearSpan = document.getElementById('current-year');
-        if (currentYearSpan) {
-            currentYearSpan.textContent = new Date().getFullYear();
-        }
+        document.addEventListener('DOMContentLoaded', function () {
+            // Update current year in footer
+            const currentYearSpan = document.getElementById('current-year');
+            if (currentYearSpan) {
+                currentYearSpan.textContent = new Date().getFullYear();
+            }
 
-// Zoom effect for project images
-// This refined script relies on CSS for transition, transform-origin, and the zoomed state.
-document.addEventListener('DOMContentLoaded', function () { 
-    const projectImages = document.querySelectorAll('.project-card .project-image');
+            // Project Image Zoom Effect
+            const projectImages = document.querySelectorAll('.project-card .project-image');
+            projectImages.forEach(image => {
+                image.addEventListener('mouseenter', function () {
+                    this.classList.add('zoomed'); 
+                });
+                image.addEventListener('mouseleave', function () {
+                    this.classList.remove('zoomed');
+                });
+            });
 
-    projectImages.forEach(image => {
-        image.addEventListener('mouseenter', function () {
-            this.classList.add('zoomed'); 
+            // Countdown Timer Logic
+            function updateCountdown() {
+                document.querySelectorAll('.countdown-timer').forEach(timerElement => {
+                    const endDateString = timerElement.getAttribute('data-end-date');
+                    const endDate = new Date(endDateString).getTime();
+                    const now = new Date().getTime();
+                    const distance = endDate - now;
+
+                    if (distance < 0) {
+                        timerElement.textContent = "Expired";
+                        timerElement.closest('.project-status').classList.remove('status-pending');
+                        timerElement.closest('.project-status').classList.add('status-done');
+                        timerElement.previousElementSibling.classList.remove('fa-hourglass-half');
+                        timerElement.previousElementSibling.classList.add('fa-check-circle');
+                        return;
+                    }
+
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    timerElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                });
+            }
+            setInterval(updateCountdown, 1000);
+            updateCountdown(); // Initial call to set countdowns immediately
+
+            // Filter and Search Logic
+            const searchInput = document.getElementById('search-input');
+            const categoryFilter = document.getElementById('category-filter');
+            const statusFilter = document.getElementById('status-filter');
+            const applyFiltersButton = document.getElementById('apply-filters');
+
+            const projectCards = document.querySelectorAll('.project-card');
+            const projectGrids = {
+                'web-services': document.getElementById('web-services-grid'),
+                'analysis-scripts-blogs': document.getElementById('analysis-scripts-blogs-grid'),
+                'automation-scripts': document.getElementById('automation-scripts-grid'),
+                'api-integration': document.getElementById('api-integration-grid')
+            };
+            const sectionHeadings = {
+                'web-services': document.getElementById('web-services-section'),
+                'analysis-scripts-blogs': document.getElementById('analysis-scripts-blogs-section'),
+                'automation-scripts': document.getElementById('automation-scripts-section'),
+                'api-integration': document.getElementById('api-integration-section')
+            };
+
+            function applyFilters() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const selectedCategory = categoryFilter.value;
+                const selectedStatus = statusFilter.value;
+
+                // Create a map to temporarily hold visible cards for each grid
+                const visibleCardsInGrids = {
+                    'web-services': [],
+                    'analysis-scripts-blogs': [],
+                    'automation-scripts': [],
+                    'api-integration': []
+                };
+
+                projectCards.forEach(card => {
+                    const cardCategory = card.getAttribute('data-category');
+                    const cardStatus = card.getAttribute('data-status');
+                    const cardTitle = card.querySelector('h5').textContent.toLowerCase();
+                    const cardDescription = card.querySelector('p').textContent.toLowerCase();
+
+                    const matchesSearch = searchTerm === '' || 
+                                          cardTitle.includes(searchTerm) || 
+                                          cardDescription.includes(searchTerm);
+                    const matchesCategory = selectedCategory === 'all' || cardCategory === selectedCategory;
+                    const matchesStatus = selectedStatus === 'all' || cardStatus === selectedStatus;
+
+                    if (matchesSearch && matchesCategory && matchesStatus) {
+                        // Add to the temporary array for its category
+                        if (visibleCardsInGrids[cardCategory]) {
+                            visibleCardsInGrids[cardCategory].push(card);
+                        }
+                    }
+                });
+
+                // Clear all grids and then append only the visible cards
+                for (const category in projectGrids) {
+                    projectGrids[category].innerHTML = ''; // Clear current cards
+                    if (visibleCardsInGrids[category].length > 0) {
+                        // Append visible cards to their respective grids
+                        visibleCardsInGrids[category].forEach(card => {
+                            projectGrids[category].appendChild(card);
+                        });
+                        // Show the section heading and grid if there are visible cards
+                        sectionHeadings[category].style.display = 'flex';
+                        projectGrids[category].style.display = 'grid';
+                    } else {
+                        // Hide the section heading and grid if no cards match
+                        sectionHeadings[category].style.display = 'none';
+                        projectGrids[category].style.display = 'none';
+                    }
+                }
+
+                // If "All Categories" is selected and there are no search terms or status filters,
+                // ensure all original projects are shown in their respective categories.
+                if (selectedCategory === 'all' && selectedStatus === 'all' && searchTerm === '') {
+                    // This re-populates all grids with their original content
+                    // A more robust solution might involve storing initial HTML or cloning
+                    // For simplicity, we'll just re-trigger a "show all" logic.
+                    resetFilters();
+                }
+            }
+
+            function resetFilters() {
+                // Re-append all cards to their original grids and show all sections
+                const originalOrder = {}; // Store original order if needed for complex layouts
+
+                // For now, simply make all cards visible and re-append to their grids
+                // This assumes the initial HTML structure is the desired "all" state
+                // and that `projectCards` is a static NodeList.
+                // A better approach for larger apps would be to store the initial HTML of each grid.
+                
+                // Re-initialize grids from a "master list" if necessary, or simply show all
+                // For this example, we'll just ensure all cards are visible and their sections are shown.
+                projectCards.forEach(card => {
+                    const cardCategory = card.getAttribute('data-category');
+                    if (projectGrids[cardCategory]) {
+                        // This re-adds cards, but doesn't guarantee original order within grid
+                        // For a simple demo, it's fine. For production, consider a template or initial state.
+                        projectGrids[cardCategory].appendChild(card); // Re-add to its original grid
+                        card.style.display = 'flex'; // Ensure it's visible
+                    }
+                });
+
+                for (const category in projectGrids) {
+                    sectionHeadings[category].style.display = 'flex';
+                    projectGrids[category].style.display = 'grid';
+                }
+            }
+
+            applyFiltersButton.addEventListener('click', applyFilters);
+            searchInput.addEventListener('input', applyFilters); // Live search
+            categoryFilter.addEventListener('change', applyFilters);
+            statusFilter.addEventListener('change', applyFilters);
+
+            // Initial filter application to ensure correct display on load
+            applyFilters();
         });
-
-        image.addEventListener('mouseleave', function () {
-            this.classList.remove('zoomed');
-        });
-    });
-});
     </script>
 </body>
 </html>
