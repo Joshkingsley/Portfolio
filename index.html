@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="M.Joshua - Statistically-oriented Developer, Automation Engineer, and Statistical Analyst. Crafting intelligent web & mobile solutions and deriving insights from data.">
     <title>M.Joshua - Developer & Analyst</title>
-    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <!-- Font Awesome CSS -->
@@ -110,7 +109,7 @@
 
         /* Custom Header Section */
         .custom-header-section {
-            position: relative; 
+            position: relative;
             top: 0; /* Align to top */
             height: 100vh; /* Full viewport height */
             color: var(--white);
@@ -142,9 +141,9 @@
             height: 100%; /* Fill parent (.custom-header-section) */
             background-color: rgba(0,0,0,0.6); /* Slightly less opaque overlay */
             border-radius: 0; /* No border-radius for full screen */
-            padding: 20px; 
+            padding: 20px;
             display: flex;
-            flex-direction: column; 
+            flex-direction: column;
             justify-content: space-between; /* Distribute content vertically */
             align-items: flex-start; /* Align items to the start (left) */
         }
@@ -264,8 +263,8 @@
             margin-top: 20px; /* Space from profile area */
             margin-bottom: 20px; /* Space before tagline */
             order: 2; /* Position it between profile and tagline */
-            flex-grow: 0; 
-            display: flex; 
+            flex-grow: 0;
+            display: flex;
             justify-content: center; /* Center the grid of cards */
         }
 
@@ -275,10 +274,10 @@
             margin: 0;
             width: 90%; /* Width of the grid container */
             display: flex;
-            flex-direction: row; 
-            flex-wrap: wrap; 
+            flex-direction: row;
+            flex-wrap: wrap;
             justify-content: center; /* Center items when they wrap */
-            align-items: stretch; 
+            align-items: stretch;
             gap: 10px; /* Gap between cards */
         }
 
@@ -286,7 +285,7 @@
             padding: 0;
             flex: 1 1 calc(50% - 20px); /* Two columns with gap */
             max-width: calc(50% - 20px); /* Max width for two columns */
-            display: flex; 
+            display: flex;
         }
 
         .main-nav-small ul li a {
@@ -298,25 +297,25 @@
             font-size: 0.9rem; /* Slightly smaller font for mobile cards */
             color: var(--white);
             font-family: 'Poppins', sans-serif;
-            background-color: rgba(255, 255, 255, 0.1); 
-            padding: 12px 10px; 
-            border-radius: 8px; 
-            text-align: center; 
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 12px 10px;
+            border-radius: 8px;
+            text-align: center;
             transition: background-color 0.3s ease, color 0.3s ease;
-            width: 100%; 
+            width: 100%;
             height: 100%; /* Ensure cards are same height */
         }
 
         .main-nav-small ul li a:hover {
             color: var(--primary-blue);
-            background-color: rgba(255, 255, 255, 0.25); 
-            text-decoration: none; 
+            background-color: rgba(255, 255, 255, 0.25);
+            text-decoration: none;
         }
 
         .main-nav-small ul li a i {
             display: block;
             font-size: 1.2rem; /* Icon size for mobile cards */
-            margin-bottom: 5px; 
+            margin-bottom: 5px;
             text-align: center;
             color: var(--primary-blue); /* Icon color */
         }
@@ -381,7 +380,7 @@
             margin-bottom: 20px;
             color: var(--primary-blue); /* Always blue in dark section */
         }
-        
+
         .skill-item {
             display: flex;
             align-items: center;
@@ -401,7 +400,7 @@
             font-size: 1.1rem;
             font-weight: 500;
         }
-        
+
         /* Autotyping for section title */
         .autotyping-title {
             white-space: nowrap; /* Prevent text from wrapping */
@@ -422,7 +421,7 @@
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            overflow: hidden; 
+            overflow: hidden;
             background-color: var(--white); /* Ensure white background */
             display: flex; /* Use flex to ensure content fills card */
             flex-direction: column; /* Stack content vertically */
@@ -610,6 +609,18 @@
             object-fit: cover;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
+        }
+
+        /* Blog Section */
+        .blog-card {
+            background-color: var(--white);
+        }
+        .section-dark .blog-card {
+            background-color: var(--black);
+        }
+        .section-dark .blog-card .card-title,
+        .section-dark .blog-card .card-text {
+            color: var(--dark-text);
         }
 
         /* Footer Section */
@@ -816,6 +827,31 @@
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(var(--primary-blue-rgb), 0.5);
         }
+
+        /* Modal specific styling */
+        #blogModal .modal-content {
+            background-color: var(--black);
+            color: var(--dark-text);
+            border-radius: 15px;
+            border: none;
+        }
+        #blogModal .modal-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        #blogModal .modal-title {
+            color: var(--primary-blue);
+        }
+        #blogModal .btn-close {
+            filter: invert(1) grayscale(100%);
+        }
+        #blogModal .modal-body {
+            line-height: 1.8;
+        }
+        #blogModal .modal-body h3 {
+            color: var(--primary-blue);
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
     </style>
 </head>
 <body>
@@ -831,12 +867,12 @@
     <!-- Custom Header Section -->
     <header class="custom-header-section" id="main-header">
         <div class="intro-container-custom">
-            <img src="images/heroImage.png" alt="Coding Background" class="intro-bg-img-custom">
+            <img src="images/heroImage.png" onerror="this.onerror=null;this.src='https://placehold.co/1920x1080/0a2e50/50aaff?text=Background+Image';" alt="Coding Background" class="intro-bg-img-custom">
         </div>
         <div class="overlay-custom">
             <div class="profile-area-custom">
                 <div class="roundedimage-div-custom">
-                    <img src="images/Image_1.jpg" alt="M.Joshua Profile">
+                    <img src="images/Image_1.jpg" onerror="this.onerror=null;this.src='https://placehold.co/100x100/50aaff/0a2e50?text=MJ';" alt="M.Joshua Profile">
                 </div>
                 <div>
                     <p class="name-custom">M.Joshua <span class="bsc-custom">Bsc.</span></p>
@@ -968,7 +1004,7 @@
                     <!-- Web Development Card -->
                     <div class="col-md-6 col-lg-4">
                         <div class="card service-card h-100">
-                            <img src="images/Website_image.avif" class="card-img-top" alt="Web Development">
+                            <img src="images/Website_image.avif" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0a2e50/ffffff?text=Web+Development';" class="card-img-top" alt="Web Development">
                             <div class="card-body">
                                 <h5 class="card-title"><i class="fas fa-laptop-code me-2"></i>Web Development</h5>
                                 <p class="card-text">Crafting bespoke, high-performance websites with a focus on data-driven design and SEO optimization. From e-commerce platforms to custom web applications, I build solutions that look great and perform intelligently.</p>
@@ -979,7 +1015,7 @@
                     <!-- Cloud Solutions & Deployment Card -->
                     <div class="col-md-6 col-lg-4">
                         <div class="card service-card h-100">
-                            <img src="images/cloud_solution_image.png" class="card-img-top" alt="Cloud Solutions">
+                            <img src="images/cloud_solution_image.png" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0a2e50/ffffff?text=Cloud+Solutions';" class="card-img-top" alt="Cloud Solutions">
                             <div class="card-body">
                                 <h5 class="card-title"><i class="fas fa-cloud me-2"></i>Cloud Solutions & Deployment</h5>
                                 <p class="card-text">Designing and deploying scalable cloud infrastructure on platforms like AWS, Azure and Google Cloud. I ensure your applications are robust, secure, and perform optimally in the cloud environment.</p>
@@ -990,7 +1026,7 @@
                     <!-- Statistical Analysis Card -->
                     <div class="col-md-6 col-lg-4">
                         <div class="card service-card h-100">
-                            <img src="images/Data_analaysis_image.jpg" class="card-img-top" alt="Statistical Analysis">
+                            <img src="images/Data_analaysis_image.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0a2e50/ffffff?text=Statistical+Analysis';" class="card-img-top" alt="Statistical Analysis">
                             <div class="card-body">
                                 <h5 class="card-title"><i class="fas fa-chart-line me-2"></i>Statistical Analysis & Modeling</h5>
                                 <p class="card-text">Transforming raw data into strategic assets. I specialize in advanced statistical modeling, predictive analytics, and pattern recognition to provide clear, actionable insights for business growth and decision-making.</p>
@@ -1020,41 +1056,41 @@
                 <div class="row g-4 justify-content-center">
                     <div class="col-md-6 col-lg-4">
                         <div class="portfolio-item">
-                            <img src="images/CyberNet.jpg" alt="E-commerce Analytics Dashboard">
+                            <img src="images/CyberNet.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/50aaff/0a2e50?text=Project+1';" alt="E-commerce Analytics Dashboard">
                             <div class="portfolio-overlay">
-                                <h4>E-commerce Analytics Dashboard</h4>
-                                <p>Interactive dashboard for tracking sales, customer behavior, and product performance, built with Python and Tableau.</p>
+                                <h4>CyberNet Services</h4>
+                                <p>A hybrid system for boosting web traffic using crypto incentives and proxy routing. Ideal for decentralized engagement campaigns</p>
                                 <a href="#" class="btn btn-outline-light btn-sm">View Project</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
                         <div class="portfolio-item">
-                            <img src="images/Keys.png" alt="Automated Data Pipeline">
+                            <img src="images/Keys.png" onerror="this.onerror=null;this.src='https://placehold.co/600x400/50aaff/0a2e50?text=Project+2';" alt="Automated Data Pipeline">
                             <div class="portfolio-overlay">
-                                <h4>Automated Data Pipeline</h4>
-                                <p>Developed a robust data pipeline using Python scripts and cloud services for real-time data ingestion and processing.</p>
+                                <h4>KEYS FOR SPOTIFY</h4>
+                                <p>Extracts and analyzes Spotify song metadata, focusing on musical key, tempo, and mood. Useful for DJs, producers, and playlist curation.</p>
                                 <a href="#" class="btn btn-outline-light btn-sm">View Project</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
                         <div class="portfolio-item">
-                            <img src="images/Florist.jpg" alt="Predictive Sales Model">
+                            <img src="images/Florist.jpg" onerror="this.onerror=null;this.src='https://placehold.co/600x400/50aaff/0a2e50?text=Project+3';" alt="Predictive Sales Model">
                             <div class="portfolio-overlay">
-                                <h4>Predictive Sales Model</h4>
-                                <p>Machine learning model to forecast future sales based on historical data and external factors, built with Scikit-learn.</p>
+                                <h4>Florist Ke</h4>
+                                <p>An online shop offering curated packages: flowers, snacks, gifts, movie tickets, date bookings in hotels/parks, museum visits, and more.</p>
                                 <a href="#" class="btn btn-outline-light btn-sm">View Project</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4">
                         <div class="portfolio-item">
-                            <img src="https://placehold.co/600x400/50aaff/ffffff?text=Web+Dashboard" alt="Web Dashboard">
+                            <img src="images/Comas_front.jpg" alt="Web Dashboard">
                             <div class="portfolio-overlay">
-                                <h4>Interactive Web Dashboard</h4>
-                                <p>A dynamic web dashboard for visualizing complex data, built with Shiny for R, offering real-time insights.</p>
-                                <a href="#" class="btn btn-outline-light btn-sm">View Project</a>
+                                <h4>Comas Storefronts</h4>
+                                <p>Automated, modular e-commerce platforms tailored for small businesses. Includes inventory sync, product filtering, and seamless checkout.</p>
+                                <a href="https://comas.onrender.com/" class="btn btn-outline-light btn-sm">View Project</a>
                             </div>
                         </div>
                     </div>
@@ -1070,7 +1106,7 @@
                     </div>
                 </div>
                 <div class="text-center mt-5">
-                    <a href="/worksapce/items/" class="btn btn-primary btn-lg"><i class="fas fa-cubes me-2"></i>View All Projects</a>
+                    <a href="/Gallery.html" class="btn btn-primary btn-lg"><i class="fas fa-cubes me-2"></i>View All Projects</a>
                 </div>
             </div>
         </section>
@@ -1130,55 +1166,54 @@
         <section id="blog-section" class="py-5 section-dark">
             <div class="container">
                 <h2 class="section-title text-white text-center mb-5">Latest Insights & Articles</h2>
-                <div class="row">
-                    <!-- LinkedIn Profile Card -->
-                    <div class="col-md-6 mb-4">
+                <div class="row g-4 justify-content-center">
+                    <!-- Blog Post 1: Mind Health Consultancy -->
+                    <div class="col-md-6 col-lg-4">
                         <div class="card blog-card h-100">
+                            <img src="https://placehold.co/600x400/50aaff/0a2e50?text=Mind+Health+Consultancy" class="card-img-top" alt="Mind Health Consultancy Blog Post">
                             <div class="card-body d-flex flex-column">
-                                <h5 class="card-title text-dark"><i class="fab fa-linkedin me-2"></i>My LinkedIn Profile</h5>
-                                <p class="card-text text-muted flex-grow-1">Connect with me on LinkedIn to see my professional journey, recommendations, and latest updates.</p>
-                                <div class="badge-base LI-profile-badge" data-locale="en_US" data-size="medium" data-theme="light" data-type="VERTICAL" data-vanity="joshua-kingsly-768a01359" data-version="v1">
-                                    <a class="badge-base__link LI-simple-link" href="https://ke.linkedin.com/in/joshua-kingsly-768a01359?trk=profile-badge"></a>
-                                </div>
-                                <a href="https://ke.linkedin.com/in/joshua-kingsly-768a01359" target="_blank" class="btn btn-outline-primary mt-auto align-self-start">View Profile</a>
+                                <h5 class="card-title text-dark">Crafting the Mind Health Consultancy Website</h5>
+                                <p class="card-text text-muted flex-grow-1">A deep dive into the development process of a responsive and intuitive web platform for mental health professionals...</p>
+                                <button class="btn btn-outline-primary mt-auto align-self-start" data-bs-toggle="modal" data-bs-target="#blogModal" data-post-id="mindHealth">Read More</button>
                             </div>
                         </div>
                     </div>
-                    <!-- Placeholder Blog Post 1 -->
-                    <div class="col-md-6 mb-4">
+                    <!-- Blog Post 2: Quant Trading -->
+                    <div class="col-md-6 col-lg-4">
                         <div class="card blog-card h-100">
-                            <img src="https://placehold.co/600x400/0a2e50/ffffff?text=Blog+Post+1" class="card-img-top" alt="Blog Post Image">
+                            <img src="https://placehold.co/600x400/0a2e50/ffffff?text=Quant+Trading+ML" class="card-img-top" alt="Quant Trading Blog Post">
                             <div class="card-body d-flex flex-column">
-                                <h5 class="card-title text-dark">The Power of Predictive Analytics in E-commerce</h5>
-                                <p class="card-text text-muted flex-grow-1">Discover how machine learning models can revolutionize your online sales strategy by accurately forecasting trends and customer behavior.</p>
-                                <a href="#" class="btn btn-outline-primary mt-auto align-self-start">Read More</a>
+                                <h5 class="card-title text-dark">Predicting Market Trends with Machine Learning</h5>
+                                <p class="card-text text-muted flex-grow-1">Exploring the use of Random Forest and XGBoost models on Dukascopy data to build powerful quantitative trading strategies...</p>
+                                <button class="btn btn-outline-primary mt-auto align-self-start" data-bs-toggle="modal" data-bs-target="#blogModal" data-post-id="quantTrading">Read More</button>
                             </div>
                         </div>
                     </div>
-                    <!-- Placeholder Blog Post 2 -->
-                    <div class="col-md-6 mb-4">
+                    <!-- Blog Post 3: Cloud Development & AI -->
+                    <div class="col-md-6 col-lg-4">
                         <div class="card blog-card h-100">
-                            <img src="https://placehold.co/600x400/50aaff/0a2e50?text=Blog+Post+2" class="card-img-top" alt="Blog Post Image">
+                            <img src="https://placehold.co/600x400/50aaff/0a2e50?text=Cloud+APIs+AI" class="card-img-top" alt="Cloud Development Blog Post">
                             <div class="card-body d-flex flex-column">
-                                <h5 class="card-title text-dark">Automating Your Workflow: A Developer's Guide</h5>
-                                <p class="card-text text-muted flex-grow-1">Learn how simple Python scripts can automate tedious tasks, freeing up your time for more strategic initiatives and innovation.</p>
-                                <a href="#" class="btn btn-outline-primary mt-auto align-self-start">Read More</a>
+                                <h5 class="card-title text-dark">Seamless Cloud Deployment and AI Integration</h5>
+                                <p class="card-text text-muted flex-grow-1">A look at how Google Cloud, API integration, and AI services can create intelligent, scalable, and robust applications...</p>
+                                <button class="btn btn-outline-primary mt-auto align-self-start" data-bs-toggle="modal" data-bs-target="#blogModal" data-post-id="cloudDevelopment">Read More</button>
                             </div>
                         </div>
                     </div>
-                    <!-- Placeholder Blog Post 3 -->
-                    <div class="col-md-6 mb-4">
+                    <!-- Blog Post 4: Comas Storefront -->
+                    <div class="col-md-6 col-lg-4">
                         <div class="card blog-card h-100">
+                            <img src="https://placehold.co/600x400/0a2e50/ffffff?text=Comas+Storefront" class="card-img-top" alt="Comas Storefront Blog Post">
                             <div class="card-body d-flex flex-column">
-                                <h5 class="card-title text-dark">Building Responsive Mobile Apps with Data in Mind</h5>
-                                <p class="card-text text-muted flex-grow-1">A deep dive into developing mobile applications that not only look great but also leverage user data for personalized experiences.</p>
-                                <a href="#" class="btn btn-outline-primary mt-auto align-self-start">Read More</a>
+                                <h5 class="card-title text-dark">Building an E-commerce Experience: The Comas Storefront</h5>
+                                <p class="card-text text-muted flex-grow-1">From product display to secure checkout, this article details the development journey of a clean and functional e-commerce platform...</p>
+                                <button class="btn btn-outline-primary mt-auto align-self-start" data-bs-toggle="modal" data-bs-target="#blogModal" data-post-id="comasStorefront">Read More</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="text-center mt-4">
-                    <a href="blog.html" class="btn btn-primary btn-lg"><i class="fas fa-blog me-2"></i>View All Articles</a>
+                    <a href="#" class="btn btn-primary btn-lg"><i class="fas fa-blog me-2"></i>View All Articles</a>
                 </div>
             </div>
         </section>
@@ -1222,6 +1257,21 @@
         </section>
 
     </main>
+
+    <!-- Modal for Blog Posts -->
+    <div class="modal fade" id="blogModal" tabindex="-1" aria-labelledby="blogModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="blogModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="blogModalBody">
+                    <!-- Blog content will be inserted here by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer class="footer-section text-white py-4 mt-auto">
         <div class="container">
@@ -1269,6 +1319,9 @@
             const loadingVideo = document.getElementById('loading-video');
             const mainContent = document.getElementById('main-content');
             const mainHeader = document.getElementById('main-header');
+            const blogModal = document.getElementById('blogModal');
+            const blogModalLabel = document.getElementById('blogModalLabel');
+            const blogModalBody = document.getElementById('blogModalBody');
 
             const welcomeText = "Welcome...";
             const typingSpeed = 100; // Milliseconds per character
@@ -1373,6 +1426,63 @@
             }, { threshold: 0.5 }); // Trigger when 50% of the section is visible
 
             observer.observe(skillsSection);
+
+
+            // --- Blog Modal Logic ---
+            function getBlogContent(postId) {
+                const posts = {
+                    mindHealth: {
+                        title: "Crafting the Mind Health Consultancy Website: My Contribution",
+                        content: `
+                            <p>For the Mind Health Consultancy project, my primary role was as the **lead developer and UX architect**. I designed and implemented the entire front-end, focusing on a responsive and compassionate user experience. My goal was to build a platform that felt welcoming and secure, which is paramount for a mental health service.</p>
+                            <p>I crafted a seamless appointment booking system that integrates with the consultants' calendars, reducing administrative overhead. The site also includes a secure, password-protected resource portal for both clients and professionals to share information. My choice of a clean, minimalist design with soft color palettes aimed to create a calming digital environment. This project demonstrates my ability to not only write code, but also to build empathetic, user-centric digital products that serve a critical function.</p>
+                            <p>[Proof Image Placeholder: A screenshot of the intuitive booking system UI]</p>
+                            <p>[Proof Image Placeholder: A wireframe showing the responsive layout for mobile and desktop]</p>
+                        `
+                    },
+                    quantTrading: {
+                        title: "Predicting Market Trends with Machine Learning: A Quantitative Approach",
+                        content: `
+                            <p>In this project, I took on the role of a **quantitative analyst and machine learning engineer**. I was responsible for the entire pipeline, from data acquisition to model deployment. I started by collecting granular historical tick data from Dukascopy, a source known for its high-quality financial data, and engineered a robust dataset for analysis.</p>
+                            <p>I then developed and trained predictive models using two powerful ensemble methods: **Random Forest** and **XGBoost**. The Random Forest model was used to identify the most significant features influencing market movements, such as specific candlestick patterns and technical indicators. Building on this, the XGBoost model was fine-tuned for high precision, utilizing its gradient-boosting framework to achieve superior forecasting accuracy. The final result was a model that could identify short-term trading opportunities with a statistically significant edge, showcasing my proficiency in applying advanced statistical and machine learning techniques to real-world financial challenges.</p>
+                            <p>[Proof Image Placeholder: A chart showing the performance of the XGBoost model against a baseline]</p>
+                            <p>[Proof Image Placeholder: A Jupyter notebook snippet detailing feature importance from the Random Forest model]</p>
+                        `
+                    },
+                    cloudDevelopment: {
+                        title: "Seamless Cloud Deployment and AI Integration: My Work with Google Cloud",
+                        content: `
+                            <p>My contribution to this project was centered on **cloud architecture and API integration**. I designed a scalable and cost-effective infrastructure on Google Cloud Platform, using services like Google App Engine for hosting the web application and Cloud Functions for handling serverless back-end logic. This architecture ensures the application can effortlessly scale to meet demand while only paying for the resources it uses.</p>
+                            <p>A key part of the project involved **API integration**. I successfully integrated several third-party APIs for services like secure payments and user authentication. Additionally, I integrated Google's own AI services, such as the Natural Language API, to power a content summarization feature within the application. This AI integration allows the application to provide intelligent, value-added features that would not be possible with traditional development alone. This project highlights my expertise in building robust, cloud-native applications with modern, intelligent capabilities.</p>
+                            <p>[Proof Image Placeholder: A diagram of the Google Cloud architecture for the application]</p>
+                            <p>[Proof Image Placeholder: A screenshot of a successful API call log in the Google Cloud Console]</p>
+                        `
+                    },
+                    comasStorefront: {
+                        title: "Building an E-commerce Experience: The Comas Storefront",
+                        content: `
+                            <p>For the Comas Storefront, I served as the **full-stack developer**, responsible for bringing the entire e-commerce platform to life. My journey began with designing a clean, user-friendly interface that prioritizes product discovery and a frictionless shopping experience. I developed the entire product catalog system, allowing the client to easily add, update, and manage their inventory.</p>
+                            <p>On the back-end, I built a secure and efficient framework to handle crucial functions like user authentication, a persistent shopping cart, and a secure checkout process with a trusted payment gateway integration. One of my key contributions was the creation of a custom **real-time analytics dashboard**. This dashboard provides the client with immediate insights into sales figures, popular products, and customer behavior, enabling them to make data-driven decisions to optimize their business. This project is a testament to my ability to deliver a comprehensive, end-to-end e-commerce solution that is both visually appealing and functionally powerful.</p>
+                            <p>[Proof Image Placeholder: A screenshot of the product catalog management interface]</p>
+                            <p>[Proof Image Placeholder: A graphic of the custom analytics dashboard with mock data]</p>
+                        `
+                    }
+                };
+                return posts[postId];
+            }
+
+            // Event listener for blog cards to populate the modal
+            blogModal.addEventListener('show.bs.modal', function (event) {
+                // Button that triggered the modal
+                const button = event.relatedTarget;
+                const postId = button.getAttribute('data-post-id');
+                const post = getBlogContent(postId);
+
+                if (post) {
+                    blogModalLabel.textContent = post.title;
+                    blogModalBody.innerHTML = post.content;
+                }
+            });
         });
     </script>
 </body>
