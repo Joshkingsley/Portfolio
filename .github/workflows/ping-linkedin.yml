@@ -1,0 +1,14 @@
+name: Ping LinkedIn based onmy pattern to detect increase in traffic
+
+on:
+  schedule:
+    - cron: '*/2 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call URLs
+        run: |
+          https://www.linkedin.com/in/joshua-kingsly101?originalSubdomain=ke
