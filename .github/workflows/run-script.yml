@@ -48,14 +48,9 @@ jobs:
           to: kingsleymwangi05@gmail.com
           from: Portfolio Monitor AI
           body: |
-            One or more of your services failed to respond during the scheduled ping.
+            Downtime detected during scheduled check.
             
-            Check the logs here: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            The following services are unreachable:
+            ${{ steps.ping_step.outputs.failed_list }}
             
-            Impacted URLs:
-            - florist-ke.onrender.com
-            - cybernet-sro7.onrender.com
-            - comas.onrender.com
-            - mindhealthconsultancy.com
-            - interunihackathon.co.ke
-            - cybernet-portals.onrender.com
+            View full logs: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
