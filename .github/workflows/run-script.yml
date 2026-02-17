@@ -12,7 +12,6 @@ jobs:
       - name: Ping Services
         id: ping_step
         run: |
-          # Array of URLs to ping
           URLS=(
             "https://florist-ke.onrender.com"
             "https://cybernet-sro7.onrender.com"
@@ -22,11 +21,20 @@ jobs:
             "https://cybernet-portals.onrender.com"
           )
 
+          FAILED=false
+
           for url in "${URLS[@]}"; do
             echo "Pinging $url..."
-            # --fail makes it exit with error if 400+, --m sets max time
-            curl -sL --fail --max-time 15 "$url" > /dev/null || echo "::warning ::Failed to reach $url"
+            if ! curl -sL --fail --max-time 15 "$url" > /dev/null; then
+              echo "::error ::Failed to reach $url"
+              FAILED=true
+            fi
           done
+
+          # This line forces the step to fail if any URL was unreachable
+          if [ "$FAILED" = true ]; then
+            exit 1
+          fi
 
       - name: Send Email Report on Failure
         if: failure()
