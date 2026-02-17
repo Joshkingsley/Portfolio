@@ -1,19 +1,53 @@
-name: Ping URLs Every 10 Minutes
+name: Render Service Keep-Alive
 
 on:
   schedule:
-    - cron: '*/10 * * * *'  # Every 10 minutes
-  workflow_dispatch:        # Allows manual trigger too
+    - cron: '*/10 * * * *'  # Runs every 10 minutes
+  workflow_dispatch:        # Manual trigger
 
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Call URLs
+      - name: Ping Services
+        id: ping_step
         run: |
-          curl -s https://florist-ke.onrender.com
-          curl -s https://cybernet-sro7.onrender.com
-          curl -s https://comas.onrender.com
-          curl -s https://mindhealthconsultancy.com
-          curl -s https://interunihackathon.co.ke
-          curl -s https://cybernet-portals.onrender.com
+          # Array of URLs to ping
+          URLS=(
+            "https://florist-ke.onrender.com"
+            "https://cybernet-sro7.onrender.com"
+            "https://comas.onrender.com"
+            "https://mindhealthconsultancy.com"
+            "https://interunihackathon.co.ke"
+            "https://cybernet-portals.onrender.com"
+          )
+
+          for url in "${URLS[@]}"; do
+            echo "Pinging $url..."
+            # --fail makes it exit with error if 400+, --m sets max time
+            curl -sL --fail --max-time 15 "$url" > /dev/null || echo "::warning ::Failed to reach $url"
+          done
+
+      - name: Send Email Report on Failure
+        if: failure()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: ${{ secrets.MAIL_SERVER }} 
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "⚠️ CyberNet Monitor: Service Downtime Alert"
+          to: Kingsley@2005Josh
+          from: Portfolio Monitor AI
+          body: |
+            One or more of your services failed to respond during the scheduled ping.
+            
+            Check the logs here: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            
+            Impacted URLs:
+            - florist-ke.onrender.com
+            - cybernet-sro7.onrender.com
+            - comas.onrender.com
+            - mindhealthconsultancy.com
+            - interunihackathon.co.ke
+            - cybernet-portals.onrender.com
