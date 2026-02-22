@@ -2,7 +2,7 @@ name: Render Service Keep-Alive
 
 on:
   schedule:
-    - cron: '*/10 * * * *'  # Runs every 10 minutes
+    - cron: '*/5 * * * *'  # Runs every 10 minutes
   workflow_dispatch:        # Manual trigger
 
 jobs:
